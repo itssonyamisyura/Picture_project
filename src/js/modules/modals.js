@@ -1,5 +1,9 @@
 const modals = () => {
-    function bindModal(triggerSelector, modalSelector, closeSelector, closeClickOverlay = true) {
+    // была ли нажата хоть одна кнопка
+    let btnPressed = false;
+
+
+    function bindModal(triggerSelector, modalSelector, closeSelector, destroy = false) {
         const trigger = document.querySelectorAll(triggerSelector),
               modal = document.querySelector(modalSelector),
               close = document.querySelector(closeSelector),
@@ -11,7 +15,12 @@ const modals = () => {
                 if (e.target) {
                     e.preventDefault(); 
     
-                // ШАГ 1: .popup_calc → проверяем width + height
+                btnPressed = true;
+
+                if (destroy) { // if = true
+                    item.remove();
+                }  
+
                 if (triggerSelector === '.popup_calc_button') {
                     const widthInput  = document.querySelector('#width');
                     const heightInput = document.querySelector('#height');
@@ -23,7 +32,7 @@ const modals = () => {
                         return;
                     }
                 }
-                // ШАГ 2: .popup_calc_profile → проверяем холодное / тёплое
+
                 if (triggerSelector === '.popup_calc_profile_button') {
                     // берём именно input'ы с чекбоксами
                     const profileCheckboxes = document.querySelectorAll('.checkbox');
@@ -38,9 +47,10 @@ const modals = () => {
                     }
                 }
 
-                // если всё ок – открываем нужное модальное окно
+                
                 windows.forEach(item => {
                     item.style.display = 'none';
+                    item.classList.add('animated', 'fadeIn');
                 });
 
                 modal.style.display = "block";
@@ -61,7 +71,7 @@ const modals = () => {
         });
 
         modal.addEventListener('click', (e) => {
-            if (e.target === modal && closeClickOverlay) {
+            if (e.target === modal) {
                 windows.forEach(item => {
                 item.style.display = 'none';
                 });
@@ -86,6 +96,8 @@ const modals = () => {
             if (!display) { // если не одно окно не показывается, показываем то окно, что нужно
                 document.querySelector(selector).style.display = "block";
                 document.body.style.overflow = 'hidden';
+                let scroll = calcScroll();
+                document.body.style.marginRight = `${scroll}px`;
             }
         }, time);
     }
@@ -107,10 +119,25 @@ const modals = () => {
         return scrollWidth;
     }
     
+    function openByScroll(selector) {
+        window.addEventListener('scroll', () => {
+            // если пользователь долистал страницу до конца, но не нажал ни одну кнопку
+            
+            //оптимизация под старый браузер
+            let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)
+
+            if (!btnPressed && (window.pageYOffset + document.documentElement.clientHeight >= scrollHeight)) { 
+                document.querySelector(selector).click();
+            }
+        });
+    }
+
     bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
     bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
-    
-    showModalByTime('.popup-consultation', 5000); 
+    bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
+    openByScroll('.fixed-gift');
+
+    // showModalByTime('.popup-consultation', 6000); 
 };
 
 export default modals;
