@@ -1,6 +1,7 @@
-// import checkNumInputs from './checkNumInputs';
 
 // все формы на сайте собирают информацию внутри себя и отправляют на сервер
+
+import { postData } from "../services/requests";
 
 const forms = () => {
     const form = document.querySelectorAll('form'),
@@ -22,16 +23,6 @@ const forms = () => {
     const path = {
         designer: 'assets/server.php',
         question: 'assets/question.php'
-    };
-
-    const postData = async (url, data) => {
-        // отправляем запрос
-        let res = await fetch(url, {
-            method: "POST",
-            body: data
-        });
-
-        return await res.text();
     };
 
     const clearInputs = () => {
