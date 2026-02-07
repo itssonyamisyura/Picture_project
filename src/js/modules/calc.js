@@ -1,3 +1,5 @@
+import { postData } from "../services/requests";
+
 const calc = (size, material, options, promocode, result) => {
     const sizeBlock = document.querySelector(size),
           materialBlock = document.querySelector(material),
@@ -6,6 +8,14 @@ const calc = (size, material, options, promocode, result) => {
           resultBlock = document.querySelector(result);
 
     let sum = 0;
+
+    const sendTotalToServer = (result) => {
+        const formData = new FormData();
+        formData.append('result', result);
+        postData('./assets/server.php', formData).then(res => console.log(res));
+    };
+  
+
 
     const calcFunc = () => {
         sum = Math.round((+sizeBlock.value) * (+materialBlock.value) + (+optionsBlock.value));
@@ -17,6 +27,9 @@ const calc = (size, material, options, promocode, result) => {
         } else {
             resultBlock.textContent = sum;
         }
+
+        sendTotalToServer(sum);
+      
     };  
 
     sizeBlock.addEventListener('change', calcFunc);
