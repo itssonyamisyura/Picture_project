@@ -10,6 +10,7 @@ import pictureSize from "./modules/pictureSize";
 import accordion from "./modules/accordion";
 import burger from "./modules/burger";
 import scrolling from "./modules/scrolling";
+import drop from "./modules/drop";
 
 // скрипты начинают выполнятся когда готова dom структура(не включается загрузка стилей, изобр..)
 window.addEventListener('DOMContentLoaded', () => {
@@ -29,4 +30,5 @@ window.addEventListener('DOMContentLoaded', () => {
     accordion('.accordion-heading');
     burger('.burger-menu', '.burger');
     scrolling('.pageup');
+    drop();
 });
