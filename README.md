@@ -9,16 +9,28 @@ Built using JavaScript and Gulp for asset bundling.
 
 🚀 About  
 
-This project is a frontend application that allows users to upload images using drag & drop and preview them instantly.  
+A web application for working with images, including drag & drop uploads, form handling, and interactive UI components.
 
-The app demonstrates working with file uploads, DOM manipulation, and build tools like Gulp.  
+The app combines multiple features such as uploading files, handling forms, and dynamic UI behavior.
 
-✨ Features  
-📂 Drag & Drop image upload  
-🖼️ Image preview after upload  
-📁 File input support  
-⚡ Fast bundling with Webpack via Gulp  
-📱 Responsive layout  
+The app demonstrates:
+
+- Drag & Drop file uploading  
+- Working with forms and sending data  
+- Handling user interactions  
+- Modular JavaScript architecture  
+- Dynamic UI updates  
+
+---
+
+## ✨ Features
+
+- 🖼️ Drag & Drop image upload  
+- 📂 File upload via input  
+- 📝 Form submission handling  
+- 📡 Sending data 
+- ⚡ Dynamic UI updates  
+- 📱 Responsive layout  
 
 🛠️ Technologies Used  
 
